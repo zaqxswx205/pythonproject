@@ -7,6 +7,9 @@ Created on Fri Jan 17 23:59:03 2020
 
 import math
 import numpy
+import time
+
+
 def FirstNumber (n) :
     global Accumulator
     firstnumber = Accumulator*n
@@ -15,11 +18,18 @@ def FirstNumber (n) :
     firstnumber = math.modf(firstnumber)[1]
     Accumulator = firstnumber
     return Accumulator
+
+
 def main() :
     N = int(input())
     firstnumberlist = numpy.array([int(FirstNumber(i)) for i in range(2,N+1)])
     freq = numpy.bincount(firstnumberlist)
     return freq
+
+
 if __name__ =='__main__' :
+    starttime = time.time()
     Accumulator = 1
     FirstNumberFreq = main()
+    EstimatedTime = time.time()-starttime
+    print(EstimatedTime)
