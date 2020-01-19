@@ -57,11 +57,15 @@ def DataProcess (path,filelist):
         Data  = Data.append(data)
     app.quit()
     return Data
+
 def DataReform(data):
     typename = ['扫描','中波','短波']
+    index = data.index
     col = [[i for i in list(data) if re.findall(j,i)] for j in typename]
     col[0] = [col[0][13],col[0][9],col[0][7],col[0][8],col[0][4],col[0][5],col[0][6],col[0][20],col[0][16],col[0][14],col[0][15],col[0][10],col[0][11],col[0][12],col[0][0],col[0][1],col[0][2],col[0][3],col[0][17],col[0][18],col[0][19]]
-    return col
+    data = [pandas.DataFrame([[numpy.modf(i)[1] for i in data[j]] for j in col[k]]) for k in numpy.arange(3)]
+    data = [pandas.DataFrame(data[i].values.T,index=index,columns=col[i]) for i in numpy.arange(3)]
+    return data
 def DataWrite(col,data):
     app = xlwings.App(visible=False,add_book=False)
     app.display_alerts = False
@@ -73,14 +77,11 @@ def DataWrite(col,data):
     work.save()
     work.close()
     app.quit()
-def DataPlot(data,col):
-    sm=pandas.DataFrame([[numpy.modf(i)[1] for i in data[j]]for j in col[0]])
-    sm=pandas.DataFrame(sm.values.T,index=sm.columns,columns=col[0])
-    zb=pandas.DataFrame([[numpy.modf(i)[1] for i in data[j]]for j in col[1]])
-    zb=pandas.DataFrame(zb.values.T,index=zb.columns,columns=col[1])
-    db=pandas.DataFrame([[numpy.modf(i)[1] for i in data[j]]for j in col[2]])
-    db=pandas.DataFrame(db.values.T,index=db.columns,columns=col[2])    
-#def Dataanalysis(Data):
+
+#def DataPlot(data,col):
+   
+#def Dataanalysis(data,col):
+
     
     
 def main(filelist):
@@ -95,14 +96,14 @@ def main(filelist):
     pool.close()
     pool.join()
     Data = pandas.concat([Data[0],Data[1],Data[2]],axis=1)
-    Columns = DataReform(Data)
+    Data = DataReform(Data)
     #DataWrite(Columns,Data)
     #Dataanalysis(Data)
     #DataPlot(Data,Columns)
     return Data
 if __name__ =='__main__':
     start = time.time()
-    FilePath = 'H:\\寿命试验数据\YXX\\2019-12'
+    FilePath = r'G:\\寿命试验数据\\YXX\\2019-12'
     FileList = os.listdir(FilePath)
     Data = main(FileList)
     stop = time.time()
