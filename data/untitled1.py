@@ -12,7 +12,7 @@ import xlwings
 import pandas
 import datetime
 from shutil import copyfile
-from decimal import *
+import decimal
 import multiprocessing
 import matplotlib.pyplot as plt
 
@@ -37,7 +37,7 @@ def DataProcess (path,filelist):
         data = {}
         LastCellCol = app.books[0].sheets[0].used_range.last_cell.row
         tempdate = numpy.array([i.timetuple()[0:3] for i in app.books[0].sheets[0].range('A:A')[1:LastCellCol].value])
-        temptime = numpy.array([(int((Decimal.from_float(i)*24*3600)/3600),int(int(((Decimal.from_float(i)*24*3600)%3600))/60),int((Decimal.from_float(i)*24*3600)%3600)%60) for i in app.books[0].sheets[0].range('B:B')[1:LastCellCol].value])
+        temptime = numpy.array([(int((decimal.Decimal.from_float(i)*24*3600)/3600),int(int(((decimal.Decimal.from_float(i)*24*3600)%3600))/60),int((decimal.Decimal.from_float(i)*24*3600)%3600)%60) for i in app.books[0].sheets[0].range('B:B')[1:LastCellCol].value])
         tempdatetime=['-'.join(str(i) for i in j) for j in numpy.hstack((tempdate,temptime))]
         data['datetime'] = [datetime.datetime.strptime(i,'%Y-%m-%d-%H-%M-%S') for i in tempdatetime]
         data[app.books[0].sheets[0].range('L:L')[0].value] = [0.1*int(str(i).split('.')[0],16)+91.2 for i in app.books[0].sheets[0].range('L:L')[1:LastCellCol].value]
@@ -73,7 +73,7 @@ def DataWrite(col,data):
     work = app.books.open(r'C:\\Users\\Administrator\\Desktop\\201410-新汇总.xlsx')
     for i in range(3):
         LastCellCol = app.books[0].sheets[0].used_range.last_cell.row
-        work.sheets[i].range('A:A')[LastCellCol-1].value = data[col[i]]
+        work.sheets[i].range('A:A')[LastCellCol-1].value = data[i]
     work.save()
     work.close()
     app.quit()
