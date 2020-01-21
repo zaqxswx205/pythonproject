@@ -7,8 +7,9 @@ Created on Tue Jan 14 10:56:49 2020
 
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QLabel, QGridLayout, QWidget
-from PyQt5.QtCore import QSize    
+from PyQt5.QtWidgets import QMainWindow, QLabel, QGridLayout, QWidget,QFrame,QAction
+from PyQt5.QtCore import QSize   
+from PyQt5.QtGui import QIcon 
      
 class Plot(QMainWindow):
     def __init__(self):
@@ -22,32 +23,33 @@ class Plot(QMainWindow):
  
         gridLayout = QGridLayout(self)     
         centralWidget.setLayout(gridLayout)  
- 
-        '''title = QLabel("Hello World from PyQt", self) 
-        title.setAlignment(QtCore.Qt.AlignCenter)
-        gridLayout.addWidget(title, 0, 0)'''
         
-        '''menu = self.menuBar().addMenu('Action for quit')
-        action = menu.addAction('Quit')
-        action.triggered.connect(QtWidgets.QApplication.quit)'''
+        self.frame1=QFrame(self)  
+        self.frame1.resize(100,100)
+        self.frame1.setStyleSheet('background-color:red;')
+        self.frame2=QFrame(self)  
+        self.frame2.resize(100,100)
+        self.frame2.setStyleSheet('background-color:green;')
+        self.frame1.setVisible(True)
+        self.frame2.setVisible(False)
+        exitAction = QAction(QIcon('exit.png'), '&寿命罐1', self)       
+        exitAction.triggered.connect(self.on_pushButton_enter_clicked_1)
         menu1 = self.menuBar().addMenu('寿命罐')
-        menu2 = self.menuBar().addMenu('载荷')
-        SMG1 = menu1.addAction('寿命罐1')
-        SMG2 = menu1.addAction('寿命罐2')
+        #menu2 = self.menuBar().addMenu('载荷')
+        menu1.addAction(exitAction)
+        '''     SMG2 = menu1.addAction('寿命罐2')
         SMG3 = menu1.addAction('寿命罐3')
         SMG4 = menu1.addAction('寿命罐4')
         SM = menu2.addAction('扫描')
-        SM1 = menu2.addAction('扫描1')
-        SM2 = menu2.addAction('扫描2')
-        SM3 = menu2.addAction('扫描3')
         ZB = menu2.addAction('中波')
-        ZB1 = menu2.addAction('中波1')
-        ZB2 = menu2.addAction('中波2')
-        ZB3 = menu2.addAction('中波3')
-        DB = menu2.addAction('短波')
-        DB1 = menu2.addAction('短波1')
-        DB2 = menu2.addAction('短波2')
-        DB3 = menu2.addAction('短波3')
+        DB = menu2.addAction('短波')'''
+    def on_pushButton_enter_clicked(self):
+        self.frame1.setVisible(True)
+        self.frame2.setVisible(False)
+ 
+    def on_pushButton_enter_clicked_1(self):
+        self.frame1.setVisible(False)
+        self.frame2.setVisible(True)
 if __name__ == "__main__":
     def run_app():
         app = QtWidgets.QApplication(sys.argv)
