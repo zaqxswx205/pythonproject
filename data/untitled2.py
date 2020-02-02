@@ -21,7 +21,7 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.stackedWidget = PyQt5.QtWidgets.QStackedWidget(self.centralWidget)
         self.Layout.addWidget(self.stackedWidget)
         self.TotalCategory = 5
-        self.Category = ['&寿命罐1', '&寿命罐2', '&扫描', '&短波', '&中波']
+        self.Category = ['&寿命罐1', '&寿命罐2', '&扫描', '&中波', '&短波']
         self.SMButton = ['制冷温度', '功率', '大端散热面', '小端散热面', '压缩机散热面']
         self.ZBDBButton = ['制冷温度', '功率', '压缩机散热面', '脉管散热面']
         self.StackConfiguration()
@@ -50,6 +50,9 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
 
     def Stack0UI(self):
         Stack0 = PyQt5.QtWidgets.QHBoxLayout()
+        Title = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(0)])
+        Title.setText('扫描 3')
+        Stack0.addWidget(Title)
         [Stack0.addWidget(PyQt5.QtWidgets.QRadioButton(i)) for i in self.SMButton]
         self.StackList['self.stack'+str(0)].setLayout(Stack0)
 
@@ -57,6 +60,12 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         Stack1 = PyQt5.QtWidgets.QVBoxLayout()
         ButtonLayout1 = PyQt5.QtWidgets.QHBoxLayout()
         ButtonLayout2 = PyQt5.QtWidgets.QHBoxLayout()
+        Title1 = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(1)])
+        Title2 = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(1)])
+        Title1.setText('扫描 1')
+        Title2.setText('扫描 2')
+        ButtonLayout1.addWidget(Title1)
+        ButtonLayout2.addWidget(Title2)
         [ButtonLayout1.addWidget(PyQt5.QtWidgets.QRadioButton(i)) for i in self.SMButton]
         [ButtonLayout2.addWidget(PyQt5.QtWidgets.QRadioButton(i)) for i in self.SMButton]
         Stack1.addLayout(ButtonLayout1)
@@ -64,7 +73,9 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.StackList['self.stack'+str(1)].setLayout(Stack1)
 
     def Stack2UI(self):
+        Main = PyQt5.QtWidgets.QVBoxLayout()
         Stack2 = PyQt5.QtWidgets.QHBoxLayout()
+        TitleLayout = PyQt5.QtWidgets.QHBoxLayout()
         self.TabWidget = PyQt5.QtWidgets.QTabWidget(self.StackList['self.stack'+str(2)])
         self.tab1 = PyQt5.QtWidgets.QWidget()
         self.tab2 = PyQt5.QtWidgets.QWidget()
@@ -82,17 +93,25 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.tab2.setLayout(self.Tabcat2)
         self.tab3.setLayout(self.Tabcat3)
         Stack2.addWidget(self.TabWidget)
-        self.StackList['self.stack'+str(2)].setLayout(Stack2)
+        Title = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(2)])
+        Title.setText('扫描')
+        Title.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+        TitleLayout.addWidget(Title)
+        Main.addLayout(TitleLayout)
+        Main.addLayout(Stack2)
+        self.StackList['self.stack'+str(2)].setLayout(Main)
 
     def Stack3UI(self):
-        Stack3 = PyQt5.QtWidgets.QHBoxLayout()
+        Main = PyQt5.QtWidgets.QVBoxLayout()
+        Stack2 = PyQt5.QtWidgets.QHBoxLayout()
+        TitleLayout = PyQt5.QtWidgets.QHBoxLayout()
         self.TabWidget = PyQt5.QtWidgets.QTabWidget(self.StackList['self.stack'+str(3)])
         self.tab1 = PyQt5.QtWidgets.QWidget()
         self.tab2 = PyQt5.QtWidgets.QWidget()
         self.tab3 = PyQt5.QtWidgets.QWidget()
-        self.TabWidget.addTab(self.tab1, "扫描 1")
-        self.TabWidget.addTab(self.tab2, "扫描 2")
-        self.TabWidget.addTab(self.tab3, "扫描 3")
+        self.TabWidget.addTab(self.tab1, "中波 1")
+        self.TabWidget.addTab(self.tab2, "中波 2")
+        self.TabWidget.addTab(self.tab3, "中波 3")
         self.Tabcat1 = PyQt5.QtWidgets.QHBoxLayout()
         self.Tabcat2 = PyQt5.QtWidgets.QHBoxLayout()
         self.Tabcat3 = PyQt5.QtWidgets.QHBoxLayout()
@@ -102,18 +121,26 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.tab1.setLayout(self.Tabcat1)
         self.tab2.setLayout(self.Tabcat2)
         self.tab3.setLayout(self.Tabcat3)
-        Stack3.addWidget(self.TabWidget)
-        self.StackList['self.stack'+str(3)].setLayout(Stack3)
+        Stack2.addWidget(self.TabWidget)
+        Title = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(2)])
+        Title.setText('中波')
+        Title.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+        TitleLayout.addWidget(Title)
+        Main.addLayout(TitleLayout)
+        Main.addLayout(Stack2)
+        self.StackList['self.stack'+str(3)].setLayout(Main)
 
     def Stack4UI(self):
-        Stack4 = PyQt5.QtWidgets.QHBoxLayout()
+        Main = PyQt5.QtWidgets.QVBoxLayout()
+        Stack2 = PyQt5.QtWidgets.QHBoxLayout()
+        TitleLayout = PyQt5.QtWidgets.QHBoxLayout()
         self.TabWidget = PyQt5.QtWidgets.QTabWidget(self.StackList['self.stack'+str(4)])
         self.tab1 = PyQt5.QtWidgets.QWidget()
         self.tab2 = PyQt5.QtWidgets.QWidget()
         self.tab3 = PyQt5.QtWidgets.QWidget()
-        self.TabWidget.addTab(self.tab1, "扫描 1")
-        self.TabWidget.addTab(self.tab2, "扫描 2")
-        self.TabWidget.addTab(self.tab3, "扫描 3")
+        self.TabWidget.addTab(self.tab1, "短波 1")
+        self.TabWidget.addTab(self.tab2, "短波 2")
+        self.TabWidget.addTab(self.tab3, "短波 3")
         self.Tabcat1 = PyQt5.QtWidgets.QHBoxLayout()
         self.Tabcat2 = PyQt5.QtWidgets.QHBoxLayout()
         self.Tabcat3 = PyQt5.QtWidgets.QHBoxLayout()
@@ -123,8 +150,14 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.tab1.setLayout(self.Tabcat1)
         self.tab2.setLayout(self.Tabcat2)
         self.tab3.setLayout(self.Tabcat3)
-        Stack4.addWidget(self.TabWidget)
-        self.StackList['self.stack'+str(4)].setLayout(Stack4)
+        Stack2.addWidget(self.TabWidget)
+        Title = PyQt5.QtWidgets.QLabel(self.StackList['self.stack'+str(2)])
+        Title.setText('短波')
+        Title.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+        TitleLayout.addWidget(Title)
+        Main.addLayout(TitleLayout)
+        Main.addLayout(Stack2)
+        self.StackList['self.stack'+str(4)].setLayout(Main)
 
 
     
